@@ -12,6 +12,10 @@ class SessionFactory {
 		return new MuxSession(dispatch);
 	}
 
+	Session createPublicSession(Configuration configuration) {
+		return new PublicSession(configuration);
+	}
+
 	private static final ThreadLocal<Session> currentSession = new ThreadLocal<Session>();
 
 	static void setCurrentSession(Session session) {

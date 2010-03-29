@@ -28,11 +28,15 @@ public final class Configuration {
 	}
 
 	public Session getSession() {
-		return new SessionFactory().createSession(this);
+		if (getProperty(EMAIL) == null || getProperty(PASSWORD) == null) {
+			return new SessionFactory().createPublicSession(this);
+		} else {
+			return new SessionFactory().createSession(this);
+		}
 	}
 
 	public Dispatch buildDispatch() {
-		verify(ENDPOINT, EMAIL, PASSWORD);
+		//verify(ENDPOINT, EMAIL, PASSWORD);
 		return new HttpDispatch(this);
 	}
 
